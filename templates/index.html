@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta name="theme-color" content="#0f1026"/>
 <title>Loves Me, Loves Me Not 🌸 Whimsical Enchanted Garden</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -13,16 +14,118 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html, body {
+      overscroll-behavior: none;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      width: 100vw;
+      width: 100%;
+      max-width: 100vw;
       height: 100vh;
       height: 100dvh;
       font-family: 'Fredoka', 'Nunito', sans-serif;
       user-select: none;
       overflow: hidden;
       background: #0f1026;
+      touch-action: manipulation;
+    }
+
+    button, [role="button"], #flower-center-kawaii, #petals-group g {
+      touch-action: manipulation;
+    }
+
+    /* Soft press feedback without sticky hover on touch */
+    @media (hover: hover) and (pointer: fine) {
+      .hover-lift:hover {
+        transform: translateY(-2px);
+      }
+      .leaf-hover:hover path:first-child {
+        filter: brightness(1.12);
+      }
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .app-header {
+      padding-top: max(0.75rem, env(safe-area-inset-top));
+    }
+
+    .app-footer {
+      padding-bottom: max(0.85rem, env(safe-area-inset-bottom));
+      padding-left: max(0.75rem, env(safe-area-inset-left));
+      padding-right: max(0.75rem, env(safe-area-inset-right));
+    }
+
+    /* Mobile stage: keep daisy + stem inside the usable viewport */
+    @media (max-width: 640px) {
+      #status-title {
+        font-size: clamp(1.35rem, 7vw, 1.85rem) !important;
+        line-height: 1.15;
+        padding: 0 0.5rem;
+      }
+      #sub-status {
+        font-size: 0.7rem !important;
+        line-height: 1.35;
+        max-width: 18rem;
+      }
+      #stem-svg {
+        width: min(42vw, 11.5rem) !important;
+        height: min(42vh, 16.5rem) !important;
+      }
+      #flower-head {
+        top: -5.25rem !important;
+        margin-left: 0.35rem !important;
+      }
+      #flower-svg {
+        width: min(58vw, 13.5rem) !important;
+        height: min(58vw, 13.5rem) !important;
+      }
+      .meadow-side {
+        transform: scale(0.72);
+        transform-origin: bottom center;
+        opacity: 0.85;
+      }
+      .meadow-mid-blooms {
+        display: none !important;
+      }
+      .moon-floating {
+        width: 3.75rem !important;
+        height: 3.75rem !important;
+        top: max(0.75rem, env(safe-area-inset-top)) !important;
+        right: 0.75rem !important;
+      }
+    }
+
+    @media (max-width: 640px) and (max-height: 720px) {
+      #stem-svg {
+        height: min(36vh, 14rem) !important;
+      }
+      #flower-head {
+        top: -4.4rem !important;
+      }
+      #flower-svg {
+        width: min(52vw, 11.75rem) !important;
+        height: min(52vw, 11.75rem) !important;
+      }
+      .meadow-panel {
+        height: 9.5rem !important;
+      }
+    }
+
+    @media (max-height: 620px) {
+      .hud-badges {
+        display: none !important;
+      }
+      #sub-status {
+        display: none !important;
+      }
+      .meadow-side {
+        display: none !important;
+      }
     }
 
     @keyframes skyCycle {
@@ -247,7 +350,7 @@
     }
   </style>
 </head>
-<body class="w-screen h-screen relative flex flex-col justify-between overflow-hidden enchanted-sky">
+<body class="relative flex flex-col justify-between overflow-hidden enchanted-sky">
 <div class="absolute inset-0 bg-gradient-to-b from-indigo-950/40 via-purple-950/30 to-[#a86589]/25 pointer-events-none z-0"></div>
 <div class="absolute inset-0 pointer-events-none z-0" id="stars-layer"></div>
 <div class="absolute top-5 right-6 sm:top-10 sm:right-16 md:right-28 w-20 h-20 sm:w-28 sm:h-28 pointer-events-none z-10 moon-floating">
@@ -269,8 +372,8 @@
 <div class="absolute top-28 left-[-20vw] w-64 sm:w-96 h-20 sm:h-28 bg-white/[0.08] rounded-full blur-[3px] cloud-layer-2 pointer-events-none z-0"></div>
 <div class="absolute top-44 left-[-15vw] w-72 sm:w-[480px] h-20 sm:h-28 bg-purple-200/[0.06] rounded-full blur-[4px] cloud-layer-3 pointer-events-none z-0"></div>
 <div class="absolute inset-0 pointer-events-none z-30" id="particles-container"></div>
-<header class="relative z-30 pt-4 sm:pt-7 px-4 w-full flex flex-col items-center justify-center text-center pointer-events-none">
-<div class="flex items-center gap-2 mb-2 pointer-events-auto">
+<header class="app-header relative z-30 pt-3 sm:pt-7 px-3 sm:px-4 w-full flex flex-col items-center justify-center text-center pointer-events-none shrink-0">
+<div class="hud-badges flex items-center gap-2 mb-1.5 sm:mb-2 pointer-events-auto flex-wrap justify-center">
 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white/90 text-xs font-semibold tracking-wide shadow-md">
 <span class="inline-block w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
 <span class="tracking-wider uppercase text-[10px] sm:text-xs font-bold text-pink-100">Secret Garden Whisper</span>
@@ -281,7 +384,7 @@
 </button>
 </div>
 <div class="min-h-12 sm:min-h-16 flex items-center justify-center pointer-events-auto">
-<h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-wide text-white drop-shadow-[0_4px_16px_rgba(255,107,153,0.55)] transition-all duration-300 transform" id="status-title">
+<h1 class="text-[1.65rem] sm:text-5xl md:text-6xl font-black tracking-wide text-white drop-shadow-[0_4px_16px_rgba(255,107,153,0.55)] transition-all duration-300 transform px-2" id="status-title">
         LOVES ME NOT
       </h1>
 </div>
@@ -289,11 +392,11 @@
 <span>✨ Pluck a soft petal to discover their heart ✨</span>
 </p>
 </header>
-<main class="relative flex-1 w-full overflow-hidden select-none flex items-end justify-center z-20">
+<main class="relative flex-1 w-full min-h-0 overflow-hidden select-none flex items-end justify-center z-20">
 <div class="absolute inset-0 pointer-events-none overflow-hidden z-10" id="fireflies-layer"></div>
-<div class="relative w-full max-w-xl h-full flex flex-col items-center justify-end pb-0 sm:pb-2 z-20" id="flower-wrapper">
+<div class="relative w-full max-w-xl h-full flex flex-col items-center justify-end pb-1 sm:pb-2 z-20" id="flower-wrapper">
 <div class="relative flex flex-col items-center stem-gentle-sway" id="stem-group">
-<svg class="w-64 sm:w-72 h-[390px] sm:h-[450px] overflow-visible drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)]" id="stem-svg" viewBox="0 0 200 390">
+<svg class="w-44 h-[260px] sm:w-64 sm:h-[390px] md:w-72 md:h-[450px] overflow-visible drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)]" id="stem-svg" viewBox="0 0 200 390">
 <defs>
 <linearGradient id="stemCurvedGrad" x1="0%" x2="100%" y1="0%" y2="0%">
 <stop offset="0%" stop-color="#15803d"></stop>
@@ -312,17 +415,17 @@
 </defs>
 <path d="M 104 390 C 103 330, 96 260, 84 175 C 88 115, 108 55, 118 0" fill="none" stroke="url(#stemCurvedGrad)" stroke-linecap="round" stroke-width="12"></path>
 <path d="M 102 386 C 101 328, 94 258, 82 175 C 86 116, 106 57, 116 2" fill="none" opacity="0.65" stroke="#bbf7d0" stroke-linecap="round" stroke-width="2.5"></path>
-<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(87, 260) rotate(-22)">
+<g class="transition-transform duration-300 leaf-hover cursor-pointer" filter="url(#leafShadow)" transform="translate(87, 260) rotate(-22)">
 <path d="M 0 0 C -25 -5, -58 10, -72 32 C -52 46, -18 30, 0 0 Z" fill="#22c55e"></path>
 <path d="M 0 0 Q -38 18 -68 30" fill="none" stroke="#86efac" stroke-linecap="round" stroke-width="2.5"></path>
 <circle cx="-38" cy="18" fill="#dcfce7" opacity="0.8" r="2.5"></circle>
 </g>
-<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(83, 185) rotate(16)">
+<g class="transition-transform duration-300 leaf-hover cursor-pointer" filter="url(#leafShadow)" transform="translate(83, 185) rotate(16)">
 <path d="M 0 0 C 30 -12, 64 -2, 78 18 C 58 32, 24 20, 0 0 Z" fill="#16a34a"></path>
 <path d="M 0 0 Q 42 3 74 16" fill="none" stroke="#86efac" stroke-linecap="round" stroke-width="2.5"></path>
 <circle cx="44" cy="9" fill="#dcfce7" opacity="0.75" r="2"></circle>
 </g>
-<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(98, 105) rotate(-35)">
+<g class="transition-transform duration-300 leaf-hover cursor-pointer" filter="url(#leafShadow)" transform="translate(98, 105) rotate(-35)">
 <path d="M 0 0 C -18 -8, -38 2, -48 18 C -34 26, -12 16, 0 0 Z" fill="#4ade80"></path>
 <path d="M 0 0 Q -24 6 -44 16" fill="none" stroke="#bbf7d0" stroke-linecap="round" stroke-width="2"></path>
 </g>
@@ -336,8 +439,8 @@
 <circle cx="104" cy="380" fill="#facc15" opacity="0.75" r="2.5"></circle>
 </g>
 </svg>
-<div class="absolute -top-32 sm:-top-36 left-1/2 -translate-x-1/2 ml-4 flex items-center justify-center cursor-pointer select-none origin-bottom" id="flower-head">
-<svg class="w-80 h-80 sm:w-96 sm:h-96 overflow-visible drop-shadow-[0_18px_32px_rgba(10,12,28,0.55)]" id="flower-svg" viewBox="-130 -130 260 260">
+<div class="absolute -top-[5.25rem] sm:-top-32 md:-top-36 left-1/2 -translate-x-1/2 ml-1.5 sm:ml-4 flex items-center justify-center cursor-pointer select-none origin-bottom" id="flower-head">
+<svg class="w-[13.5rem] h-[13.5rem] sm:w-80 sm:h-80 md:w-96 md:h-96 overflow-visible drop-shadow-[0_18px_32px_rgba(10,12,28,0.55)]" id="flower-svg" viewBox="-130 -130 260 260">
 <defs>
 <linearGradient id="petalGradient" x1="0%" x2="0%" y1="0%" y2="100%">
 <stop offset="0%" stop-color="#ffffff"></stop>
@@ -387,7 +490,7 @@
 </div>
 </div>
 </main>
-<div class="absolute bottom-0 left-0 right-0 h-48 sm:h-64 md:h-76 pointer-events-none z-10 overflow-hidden">
+<div class="meadow-panel absolute bottom-0 left-0 right-0 h-40 sm:h-64 md:h-76 pointer-events-none z-10 overflow-hidden">
 <svg class="absolute bottom-20 sm:bottom-28 -left-[5vw] w-[110vw] h-40 sm:h-52 opacity-80" preserveAspectRatio="none" viewBox="0 0 1000 120">
 <path d="M 0 120 L 0 50 Q 280 5, 540 45 Q 780 85, 1000 30 L 1000 120 Z" fill="#242254"></path>
 </svg>
@@ -402,7 +505,7 @@
 <svg class="absolute bottom-10 sm:bottom-16 -left-[5vw] w-[110vw] h-36 sm:h-48 opacity-90" preserveAspectRatio="none" viewBox="0 0 1000 120">
 <path d="M 0 120 L 0 45 Q 220 75, 460 30 Q 720 -5, 1000 50 L 1000 120 Z" fill="#1b4952"></path>
 </svg>
-<div class="absolute bottom-16 sm:bottom-24 left-0 right-0 w-full pointer-events-none px-6 sm:px-16 flex justify-between items-end opacity-90">
+<div class="meadow-mid-blooms absolute bottom-16 sm:bottom-24 left-0 right-0 w-full pointer-events-none px-6 sm:px-16 flex justify-between items-end opacity-90">
 <div class="sway-flower-left flex flex-col items-center">
 <svg class="w-6 h-10 overflow-visible" viewBox="0 0 24 40">
 <path d="M 12 40 Q 10 24 12 12" fill="none" stroke="#22c55e" stroke-width="2"></path>
@@ -449,7 +552,7 @@
 </defs>
 <path d="M 0 100 L 0 30 Q 320 60, 620 20 Q 840 -10, 1000 25 L 1000 100 Z" fill="url(#hillGradFull)"></path>
 </svg>
-<div class="absolute bottom-3 left-3 sm:left-12 md:left-20 z-20 flex items-end gap-2.5 opacity-95">
+<div class="meadow-side absolute bottom-2 left-1 sm:left-12 md:left-20 z-20 flex items-end gap-2.5 opacity-95">
 <div class="sway-grass flex items-end gap-1">
 <div class="w-2.5 h-9 sm:h-12 rounded-t-full bg-lime-300"></div>
 <div class="w-3.5 h-13 sm:h-16 rounded-t-full bg-emerald-400"></div>
@@ -481,7 +584,7 @@
 <span class="text-base sm:text-xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">🌸</span>
 </div>
 </div>
-<div class="absolute bottom-3 right-3 sm:right-12 md:right-20 z-20 flex items-end gap-2.5 opacity-95">
+<div class="meadow-side absolute bottom-2 right-1 sm:right-12 md:right-20 z-20 flex items-end gap-2.5 opacity-95">
 <div class="sway-flower-left flex flex-col items-center mb-1">
 <svg class="w-8 h-15 sm:w-10 sm:h-18 overflow-visible drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]" viewBox="0 0 34 60">
 <path d="M 17 60 Q 13 40 17 18" fill="none" stroke="#16a34a" stroke-linecap="round" stroke-width="3"></path>
@@ -508,22 +611,21 @@
 <div class="relative -top-8 -left-2 text-base sm:text-xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">🌼</div>
 </div>
 </div>
-<footer class="relative z-30 pb-4 sm:pb-7 px-4 w-full flex items-center justify-center">
-<div class="inline-flex items-center gap-2 sm:gap-4 p-2 sm:p-2.5 rounded-3xl bg-slate-900/40 backdrop-blur-2xl border border-white/20 shadow-[0_12px_36px_rgba(0,0,0,0.45)] max-w-md w-full justify-between">
-<div class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white min-h-[44px]">
+<footer class="app-footer relative z-30 pb-3 sm:pb-7 px-3 sm:px-4 w-full flex items-center justify-center shrink-0">
+<div class="inline-flex items-center gap-1.5 sm:gap-4 p-1.5 sm:p-2.5 rounded-3xl bg-slate-900/40 backdrop-blur-2xl border border-white/20 shadow-[0_12px_36px_rgba(0,0,0,0.45)] max-w-md w-full justify-between">
+<div class="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white min-h-[44px]">
 <span class="text-base sm:text-lg">🌼</span>
-<span class="text-xs sm:text-sm font-bold tracking-wider uppercase hidden xs:inline text-pink-100">Petals</span>
-<span class="text-xs sm:text-sm font-extrabold text-amber-200 bg-amber-950/60 px-2.5 py-0.5 rounded-full ml-1 font-mono border border-amber-300/30" id="petals-count">
+<span class="text-xs sm:text-sm font-extrabold text-amber-200 bg-amber-950/60 px-2 py-0.5 rounded-full font-mono border border-amber-300/30" id="petals-count">
           8/8
         </span>
 </div>
-<div class="flex items-center gap-2">
-<button class="group relative min-h-[44px] px-5 sm:px-6 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(244,63,94,0.55)] hover:shadow-[0_6px_24px_rgba(244,63,94,0.7)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="pluck-btn">
-<span class="transition-transform group-hover:rotate-12 text-sm sm:text-base">✂️</span>
+<div class="flex items-center gap-1.5 sm:gap-2">
+<button class="group relative min-h-[44px] px-3.5 sm:px-6 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(244,63,94,0.55)] hover-lift active:scale-95 transition-all flex items-center gap-1 cursor-pointer" id="pluck-btn">
+<span class="text-sm sm:text-base">✂️</span>
 <span>Pluck</span>
 </button>
-<button class="group relative min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(20,184,166,0.45)] hover:shadow-[0_6px_24px_rgba(20,184,166,0.65)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="reset-btn">
-<span class="transition-transform group-hover:rotate-45 text-sm sm:text-base">🌱</span>
+<button class="group relative min-h-[44px] px-3 sm:px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(20,184,166,0.45)] hover-lift active:scale-95 transition-all flex items-center gap-1 cursor-pointer" id="reset-btn">
+<span class="text-sm sm:text-base">🌱</span>
 <span>Regrow</span>
 </button>
 </div>
@@ -1007,7 +1109,7 @@
     }
 
     function updateUI(titleText, titleClass, subtitleText, count) {
-      statusTitle.className = `text-3xl sm:text-5xl md:text-6xl font-black tracking-wide transition-all duration-300 transform scale-105 ${titleClass}`;
+      statusTitle.className = `text-[1.65rem] sm:text-5xl md:text-6xl font-black tracking-wide transition-all duration-300 transform scale-105 px-2 ${titleClass}`;
       statusTitle.textContent = titleText;
       setTimeout(() => {
         statusTitle.classList.remove('scale-105');
