@@ -1,164 +1,214 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Loves Me, Loves Me Not 🌸 Whimsical Storybook</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Loves Me, Loves Me Not 🌸 Whimsical Enchanted Garden</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       margin: 0;
       padding: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       font-family: 'Fredoka', 'Nunito', sans-serif;
       user-select: none;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0f172a 60%, #090d16 100%);
+      background: #0f1026;
     }
 
-    /* Ambient drifting clouds */
-    @keyframes cloudDriftSlow {
+    @keyframes skyCycle {
+      0%, 100% {
+        background: radial-gradient(circle at 50% 18%, #281d59 0%, #1b1642 38%, #11142e 72%, #0a0b1c 100%);
+      }
+      50% {
+        background: radial-gradient(circle at 50% 25%, #342168 0%, #221a4f 40%, #131735 75%, #0a0b1c 100%);
+      }
+    }
+    .enchanted-sky {
+      animation: skyCycle 20s ease-in-out infinite;
+    }
+
+    @keyframes cloudFloat1 {
+      0% { transform: translateX(-140%); }
+      100% { transform: translateX(260vw); }
+    }
+    @keyframes cloudFloat2 {
+      0% { transform: translateX(-160%); }
+      100% { transform: translateX(240vw); }
+    }
+    @keyframes cloudFloat3 {
       0% { transform: translateX(-120%); }
-      100% { transform: translateX(280%); }
+      100% { transform: translateX(270vw); }
     }
-    @keyframes cloudDriftFast {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(240%); }
+    .cloud-layer-1 { animation: cloudFloat1 64s linear infinite; }
+    .cloud-layer-2 { animation: cloudFloat2 48s linear infinite; }
+    .cloud-layer-3 { animation: cloudFloat3 78s linear infinite; }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-9px) rotate(2deg); }
     }
-    .cloud-slow {
-      animation: cloudDriftSlow 52s linear infinite;
-    }
-    .cloud-fast {
-      animation: cloudDriftFast 38s linear infinite;
+    .moon-floating {
+      animation: moonFloat 7s ease-in-out infinite;
     }
 
-    /* Star sparkles */
     @keyframes sparkleGlow {
-      0%, 100% { opacity: 0.35; transform: scale(0.7) rotate(0deg); }
-      50% { opacity: 1; transform: scale(1.25) rotate(45deg); filter: drop-shadow(0 0 6px rgba(255,248,198,0.9)); }
+      0%, 100% { opacity: 0.25; transform: scale(0.65) rotate(0deg); }
+      50% { opacity: 0.95; transform: scale(1.22) rotate(45deg); filter: drop-shadow(0 0 8px rgba(254, 240, 138, 0.95)); }
     }
     .twinkle-star {
-      animation: sparkleGlow var(--speed, 3s) infinite ease-in-out;
+      animation: sparkleGlow var(--speed, 3.2s) infinite ease-in-out;
     }
 
-    /* Grass gentle swaying */
+    @keyframes fireflyDrift {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.6);
+      }
+      20% {
+        opacity: 0.9;
+        transform: translate(calc(var(--fx) * 0.3), -35px) scale(1.1);
+      }
+      60% {
+        opacity: 0.8;
+        transform: translate(var(--fx), -85px) scale(0.9);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(var(--fx) * 1.4), -140px) scale(0.4);
+      }
+    }
+    .firefly-spark {
+      animation: fireflyDrift var(--dur, 6s) ease-in-out infinite;
+    }
+
     @keyframes swaySoft {
-      0%, 100% { transform: rotate(-1.5deg); }
-      50% { transform: rotate(2deg); }
+      0%, 100% { transform: rotate(-2.5deg); }
+      50% { transform: rotate(3deg); }
     }
     .sway-grass {
       transform-origin: bottom center;
       animation: swaySoft 4.5s ease-in-out infinite;
     }
+    .sway-flower-left {
+      transform-origin: bottom center;
+      animation: swaySoft 3.8s ease-in-out infinite;
+    }
+    .sway-flower-right {
+      transform-origin: bottom center;
+      animation: swaySoft 4.8s ease-in-out infinite 0.9s;
+    }
 
-    /* Flower spring bounce when plucked */
     @keyframes flowerPluckRecoil {
       0% {
         transform: translate(-50%, 0) rotate(0deg);
       }
-      22% {
-        transform: translate(calc(-50% + 15px), 7px) rotate(8.5deg);
+      20% {
+        transform: translate(calc(-50% + 18px), 8px) rotate(9.5deg);
       }
-      48% {
-        transform: translate(calc(-50% - 10px), -5px) rotate(-5deg);
+      45% {
+        transform: translate(calc(-50% - 13px), -6px) rotate(-6.5deg);
       }
       70% {
-        transform: translate(calc(-50% + 5px), 2px) rotate(2.5deg);
+        transform: translate(calc(-50% + 7px), 3px) rotate(3deg);
       }
       85% {
-        transform: translate(calc(-50% - 2px), -1px) rotate(-1deg);
+        transform: translate(calc(-50% - 3px), -1px) rotate(-1.5deg);
       }
       100% {
         transform: translate(-50%, 0) rotate(0deg);
       }
     }
     .spring-recoil {
-      animation: flowerPluckRecoil 0.72s cubic-bezier(0.28, 1.45, 0.58, 1) !important;
+      animation: flowerPluckRecoil 0.75s cubic-bezier(0.28, 1.45, 0.58, 1) !important;
       transform-origin: center 80px;
     }
 
-    /* Upper neck gentle recoil reaction */
     @keyframes neckSpring {
       0% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg) translateX(4px); }
-      55% { transform: rotate(-3deg) translateX(-2px); }
-      80% { transform: rotate(1.2deg); }
+      22% { transform: rotate(6.5deg) translateX(5px); }
+      52% { transform: rotate(-4deg) translateX(-3px); }
+      78% { transform: rotate(1.6deg); }
       100% { transform: rotate(0deg); }
     }
     .neck-recoil {
-      animation: neckSpring 0.72s cubic-bezier(0.28, 1.45, 0.58, 1);
-      transform-origin: 104px 220px;
+      animation: neckSpring 0.75s cubic-bezier(0.28, 1.45, 0.58, 1);
+      transform-origin: 104px 280px;
     }
 
-    /* Tall stem gentle organic sway */
     @keyframes stemSwayTilted {
-      0%, 100% { transform: rotate(-2.5deg); }
-      50% { transform: rotate(1.5deg); }
+      0%, 100% { transform: rotate(-2.4deg); }
+      50% { transform: rotate(1.8deg); }
     }
     .stem-gentle-sway {
       transform-origin: bottom center;
-      animation: stemSwayTilted 6s ease-in-out infinite;
+      animation: stemSwayTilted 6.5s ease-in-out infinite;
     }
 
-    /* Floating particles / hearts / petals */
     @keyframes floatParticle {
       0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+        transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
       }
-      15% {
+      18% {
         opacity: 1;
-        transform: translate(calc(-50% + var(--dx, 0px) * 0.3), calc(-50% - 25px)) scale(1.15) rotate(15deg);
+        transform: translate(calc(-50% + var(--dx, 0px) * 0.35), calc(-50% - 30px)) scale(1.2) rotate(15deg);
       }
-      80% {
-        opacity: 0.9;
+      75% {
+        opacity: 0.95;
       }
       100% {
         opacity: 0;
-        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 140px)) scale(0.7) rotate(var(--rot, 45deg));
+        transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 170px)) scale(0.7) rotate(var(--rot, 50deg));
       }
     }
     .particle-float {
-      animation: floatParticle 2.4s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+      animation: floatParticle 2.5s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
     }
 
-    /* Falling plucked petal */
     @keyframes petalFallFlutter {
       0% {
         opacity: 1;
         transform: translate(0, 0) scale(1) rotate(var(--base-rot, 0deg));
       }
-      25% {
-        opacity: 0.95;
-        transform: translate(calc(var(--dir, 1) * 35px), 40px) scale(0.96) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * 35deg));
+      22% {
+        opacity: 0.96;
+        transform: translate(calc(var(--dir, 1) * 45px), 48px) scale(0.96) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * 35deg));
       }
-      55% {
-        opacity: 0.8;
-        transform: translate(calc(var(--dir, 1) * 15px), 115px) scale(0.9) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * -25deg));
+      52% {
+        opacity: 0.85;
+        transform: translate(calc(var(--dir, 1) * 20px), 135px) scale(0.9) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * -30deg));
       }
       100% {
         opacity: 0;
-        transform: translate(calc(var(--dir, 1) * 55px), 230px) scale(0.7) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * 95deg));
+        transform: translate(calc(var(--dir, 1) * 80px), 280px) scale(0.68) rotate(calc(var(--base-rot, 0deg) + var(--dir, 1) * 110deg));
       }
     }
     .plucked-falling {
-      animation: petalFallFlutter 0.95s cubic-bezier(0.35, 0.1, 0.25, 1) forwards !important;
+      animation: petalFallFlutter 1.05s cubic-bezier(0.35, 0.1, 0.25, 1) forwards !important;
       pointer-events: none;
     }
 
-    /* Blossom grow animation */
     @keyframes sproutBloom {
       0% {
-        transform: scale(0) translateY(180px) rotate(-20deg);
+        transform: scale(0) translateY(180px) rotate(-18deg);
         opacity: 0;
       }
       65% {
-        transform: scale(1.12) translateY(-10px) rotate(4deg);
+        transform: scale(1.1) translateY(-10px) rotate(4deg);
         opacity: 1;
       }
       85% {
-        transform: scale(0.96) translateY(2px) rotate(-2deg);
+        transform: scale(0.97) translateY(2px) rotate(-2deg);
       }
       100% {
         transform: scale(1) translateY(0) rotate(0deg);
@@ -166,131 +216,128 @@
       }
     }
     .blooming-sprout {
-      animation: sproutBloom 1s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+      animation: sproutBloom 1.05s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
     }
 
-    /* Subtle eye blinking */
     @keyframes blink {
-      0%, 92%, 100% { transform: scaleY(1); }
-      96% { transform: scaleY(0.08); }
+      0%, 91%, 100% { transform: scaleY(1); }
+      95% { transform: scaleY(0.08); }
     }
     .eye-blink {
       transform-origin: center;
-      animation: blink 4s infinite;
+      animation: blink 4.2s infinite;
     }
 
-    /* Glow ring for storybook card */
-    .storybook-glow {
-      box-shadow: 0 25px 60px -15px rgba(22, 13, 58, 0.7),
-                  0 0 50px -10px rgba(236, 140, 180, 0.25),
-                  inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    @keyframes popHaptic {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    .haptic-pop {
+      animation: popHaptic 0.25s ease-out;
+    }
+
+    @keyframes popBanner {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .banner-pop {
+      animation: popBanner 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
   </style>
 </head>
-<body class="w-screen h-screen flex items-center justify-center p-3 sm:p-6 overflow-hidden relative">
-<main class="relative w-full max-w-[500px] aspect-[4/5.4] max-h-[94vh] rounded-[36px] storybook-glow flex flex-col overflow-hidden border-2 border-white/20 z-10 backdrop-blur-md">
-<header class="relative z-30 pt-6 px-6 pb-2 flex flex-col items-center justify-center text-center">
-<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white/90 text-xs font-semibold tracking-wide shadow-sm mb-2">
+<body class="w-screen h-screen relative flex flex-col justify-between overflow-hidden enchanted-sky">
+<div class="absolute inset-0 bg-gradient-to-b from-indigo-950/40 via-purple-950/30 to-[#a86589]/25 pointer-events-none z-0"></div>
+<div class="absolute inset-0 pointer-events-none z-0" id="stars-layer"></div>
+<div class="absolute top-5 right-6 sm:top-10 sm:right-16 md:right-28 w-20 h-20 sm:w-28 sm:h-28 pointer-events-none z-10 moon-floating">
+<div class="absolute inset-0 rounded-full bg-amber-200/25 blur-2xl"></div>
+<svg class="w-full h-full drop-shadow-[0_6px_22px_rgba(254,240,138,0.65)]" viewBox="0 0 100 100">
+<defs>
+<linearGradient id="fullMoonGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#fffdf0"></stop>
+<stop offset="55%" stop-color="#fef08a"></stop>
+<stop offset="100%" stop-color="#facc15"></stop>
+</linearGradient>
+</defs>
+<path d="M 58 10 C 78 22, 88 52, 70 77 C 55 95, 24 94, 15 85 C 45 96, 80 72, 71 37 C 67 21, 54 13, 58 10 Z" fill="url(#fullMoonGrad)"></path>
+<path d="M 53 47 Q 58 53 63 48" fill="none" stroke="#ca8a04" stroke-linecap="round" stroke-width="2.2"></path>
+<ellipse cx="61" cy="55" fill="#f472b6" opacity="0.65" rx="3.5" ry="2"></ellipse>
+</svg>
+</div>
+<div class="absolute top-8 left-[-10vw] w-48 sm:w-80 h-16 sm:h-24 bg-white/10 rounded-full blur-[2px] cloud-layer-1 pointer-events-none z-0"></div>
+<div class="absolute top-28 left-[-20vw] w-64 sm:w-96 h-20 sm:h-28 bg-white/[0.08] rounded-full blur-[3px] cloud-layer-2 pointer-events-none z-0"></div>
+<div class="absolute top-44 left-[-15vw] w-72 sm:w-[480px] h-20 sm:h-28 bg-purple-200/[0.06] rounded-full blur-[4px] cloud-layer-3 pointer-events-none z-0"></div>
+<div class="absolute inset-0 pointer-events-none z-30" id="particles-container"></div>
+<header class="relative z-30 pt-4 sm:pt-7 px-4 w-full flex flex-col items-center justify-center text-center pointer-events-none">
+<div class="flex items-center gap-2 mb-2 pointer-events-auto">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white/90 text-xs font-semibold tracking-wide shadow-md">
 <span class="inline-block w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-<span class="tracking-wider uppercase text-[11px] font-bold">Secret Garden Whisper</span>
+<span class="tracking-wider uppercase text-[10px] sm:text-xs font-bold text-pink-100">Secret Garden Whisper</span>
 </div>
-<div class="h-14 flex items-center justify-center">
-<h1 class="text-3xl sm:text-4xl font-extrabold tracking-wide text-white drop-shadow-[0_4px_12px_rgba(255,107,153,0.5)] transition-all duration-300 transform" id="status-title">
-          LOVES ME NOT
-        </h1>
+<button class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white/90 text-xs font-semibold hover:bg-white/25 transition-all shadow-md active:scale-95 cursor-pointer" id="sound-btn" title="Toggle Sound Feedback">
+<span class="text-xs" id="sound-icon">🔔</span>
+<span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-200" id="sound-label">Chimes On</span>
+</button>
 </div>
-<p class="text-sm font-semibold text-pink-200/90 tracking-wide transition-all duration-300 flex items-center gap-1.5" id="sub-status">
+<div class="min-h-12 sm:min-h-16 flex items-center justify-center pointer-events-auto">
+<h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-wide text-white drop-shadow-[0_4px_16px_rgba(255,107,153,0.55)] transition-all duration-300 transform" id="status-title">
+        LOVES ME NOT
+      </h1>
+</div>
+<p class="text-xs sm:text-base font-semibold text-pink-100/90 tracking-wide transition-all duration-300 flex items-center justify-center gap-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] max-w-md px-2 min-h-[1.5rem]" id="sub-status">
 <span>✨ Pluck a soft petal to discover their heart ✨</span>
 </p>
 </header>
-<div class="relative flex-1 w-full overflow-hidden select-none">
-<div class="absolute inset-0 bg-gradient-to-b from-[#1b1947] via-[#352563] via-50% to-[#a86589]"></div>
-<div class="absolute top-4 right-7 w-20 h-20 pointer-events-none z-10">
-<div class="absolute inset-0 rounded-full bg-amber-200/25 blur-xl"></div>
-<svg class="w-full h-full drop-shadow-[0_4px_16px_rgba(254,240,138,0.55)]" viewBox="0 0 100 100">
-<defs>
-<linearGradient id="moonGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#fffbeb"></stop>
-<stop offset="60%" stop-color="#fef08a"></stop>
-<stop offset="100%" stop-color="#fde047"></stop>
-</linearGradient>
-</defs>
-<path d="M 58 10 C 76 22, 85 52, 68 76 C 54 94, 25 93, 15 85 C 44 95, 78 72, 70 38 C 66 22, 54 13, 58 10 Z" fill="url(#moonGrad)"></path>
-<path d="M 52 46 Q 57 52 62 47" fill="none" stroke="#ca8a04" stroke-linecap="round" stroke-width="2.2"></path>
-<ellipse cx="60" cy="54" fill="#f472b6" opacity="0.6" rx="3.5" ry="2"></ellipse>
-</svg>
-</div>
-<div class="absolute inset-0 pointer-events-none z-10" id="stars-layer"></div>
-<div class="absolute top-10 left-0 w-32 h-14 bg-white/15 rounded-full blur-[1px] cloud-slow pointer-events-none"></div>
-<div class="absolute top-28 -left-12 w-48 h-16 bg-white/10 rounded-full blur-[1.5px] cloud-fast pointer-events-none"></div>
-<div class="absolute inset-0 pointer-events-none z-30" id="particles-container"></div>
-<div class="absolute bottom-0 left-0 right-0 h-64 pointer-events-none z-10">
-<svg class="absolute bottom-16 -left-8 -right-8 w-[115%] h-36 opacity-75" preserveAspectRatio="none" viewBox="0 0 500 120">
-<path d="M 0 120 L 0 50 Q 140 10, 270 45 Q 390 75, 500 30 L 500 120 Z" fill="#2d3568"></path>
-</svg>
-<svg class="absolute bottom-10 -left-6 -right-6 w-[110%] h-32 opacity-90" preserveAspectRatio="none" viewBox="0 0 500 120">
-<path d="M 0 120 L 0 45 Q 110 75, 230 35 Q 360 0, 500 55 L 500 120 Z" fill="#23525b"></path>
-</svg>
-<svg class="absolute bottom-0 left-0 right-0 w-full h-28" preserveAspectRatio="none" viewBox="0 0 500 100">
-<defs>
-<linearGradient id="hillGrad" x1="0%" x2="0%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#4ade80"></stop>
-<stop offset="35%" stop-color="#22c55e"></stop>
-<stop offset="100%" stop-color="#15803d"></stop>
-</linearGradient>
-</defs>
-<path d="M 0 100 L 0 25 Q 160 50, 310 20 Q 420 -5, 500 20 L 500 100 Z" fill="url(#hillGrad)"></path>
-</svg>
-<div class="absolute bottom-3 left-6 z-20 sway-grass flex items-end gap-1.5 opacity-90">
-<div class="w-2.5 h-7 rounded-t-full bg-lime-300"></div>
-<div class="w-3.5 h-11 rounded-t-full bg-emerald-400"></div>
-<div class="w-3 h-8 rounded-t-full bg-green-500"></div>
-<div class="relative -top-7 -left-1">
-<span class="text-xs">🌼</span>
-</div>
-</div>
-<div class="absolute bottom-4 right-8 z-20 sway-grass flex items-end gap-1.5 opacity-90" style="animation-delay: 1.5s;">
-<div class="w-3 h-9 rounded-t-full bg-emerald-300"></div>
-<div class="w-2.5 h-12 rounded-t-full bg-lime-400"></div>
-<div class="w-3 h-7 rounded-t-full bg-emerald-500"></div>
-<div class="relative -top-8 -left-2">
-<span class="text-sm">🌸</span>
-</div>
-</div>
-</div>
-<div class="absolute inset-0 flex flex-col items-center justify-end pb-3 z-20" id="flower-wrapper">
+<main class="relative flex-1 w-full overflow-hidden select-none flex items-end justify-center z-20">
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-10" id="fireflies-layer"></div>
+<div class="relative w-full max-w-xl h-full flex flex-col items-center justify-end pb-0 sm:pb-2 z-20" id="flower-wrapper">
 <div class="relative flex flex-col items-center stem-gentle-sway" id="stem-group">
-<svg class="w-64 h-[350px] overflow-visible drop-shadow-[0_10px_20px_rgba(0,0,0,0.25)]" id="stem-svg" viewBox="0 0 200 340">
+<svg class="w-64 sm:w-72 h-[390px] sm:h-[450px] overflow-visible drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)]" id="stem-svg" viewBox="0 0 200 390">
 <defs>
 <linearGradient id="stemCurvedGrad" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" stop-color="#16a34a"></stop>
+<stop offset="0%" stop-color="#15803d"></stop>
 <stop offset="35%" stop-color="#4ade80"></stop>
 <stop offset="70%" stop-color="#22c55e"></stop>
-<stop offset="100%" stop-color="#15803d"></stop>
+<stop offset="100%" stop-color="#166534"></stop>
 </linearGradient>
 <filter height="140%" id="leafShadow" width="140%" x="-20%" y="-20%">
-<feDropShadow dx="1" dy="3" flood-color="#0f172a" flood-opacity="0.2" stdDeviation="2.5"></feDropShadow>
+<feDropShadow dx="1" dy="3" flood-color="#090d16" flood-opacity="0.35" stdDeviation="3"></feDropShadow>
 </filter>
+<linearGradient id="earthenPatchGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#2d4a22"></stop>
+<stop offset="50%" stop-color="#1c3315"></stop>
+<stop offset="100%" stop-color="#10200c"></stop>
+</linearGradient>
 </defs>
-<path d="M 104 340 C 98 270, 78 200, 84 130 C 88 85, 108 40, 118 0" fill="none" stroke="url(#stemCurvedGrad)" stroke-linecap="round" stroke-width="11"></path>
-<path d="M 102 336 C 96 268, 76 198, 82 130 C 86 86, 106 42, 116 2" fill="none" opacity="0.65" stroke="#bbf7d0" stroke-linecap="round" stroke-width="2.5"></path>
-<g class="transition-transform duration-300 hover:scale-110" filter="url(#leafShadow)" transform="translate(86, 215) rotate(-22)">
+<path d="M 104 390 C 103 330, 96 260, 84 175 C 88 115, 108 55, 118 0" fill="none" stroke="url(#stemCurvedGrad)" stroke-linecap="round" stroke-width="12"></path>
+<path d="M 102 386 C 101 328, 94 258, 82 175 C 86 116, 106 57, 116 2" fill="none" opacity="0.65" stroke="#bbf7d0" stroke-linecap="round" stroke-width="2.5"></path>
+<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(87, 260) rotate(-22)">
 <path d="M 0 0 C -25 -5, -58 10, -72 32 C -52 46, -18 30, 0 0 Z" fill="#22c55e"></path>
 <path d="M 0 0 Q -38 18 -68 30" fill="none" stroke="#86efac" stroke-linecap="round" stroke-width="2.5"></path>
 <circle cx="-38" cy="18" fill="#dcfce7" opacity="0.8" r="2.5"></circle>
 </g>
-<g class="transition-transform duration-300 hover:scale-110" filter="url(#leafShadow)" transform="translate(83, 145) rotate(16)">
+<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(83, 185) rotate(16)">
 <path d="M 0 0 C 30 -12, 64 -2, 78 18 C 58 32, 24 20, 0 0 Z" fill="#16a34a"></path>
 <path d="M 0 0 Q 42 3 74 16" fill="none" stroke="#86efac" stroke-linecap="round" stroke-width="2.5"></path>
 <circle cx="44" cy="9" fill="#dcfce7" opacity="0.75" r="2"></circle>
 </g>
-<g class="transition-transform duration-300 hover:scale-110" filter="url(#leafShadow)" transform="translate(98, 75) rotate(-35)">
+<g class="transition-transform duration-300 hover:scale-110 cursor-pointer" filter="url(#leafShadow)" transform="translate(98, 105) rotate(-35)">
 <path d="M 0 0 C -18 -8, -38 2, -48 18 C -34 26, -12 16, 0 0 Z" fill="#4ade80"></path>
 <path d="M 0 0 Q -24 6 -44 16" fill="none" stroke="#bbf7d0" stroke-linecap="round" stroke-width="2"></path>
 </g>
+<g id="stem-soil-anchor">
+<ellipse cx="104" cy="382" fill="url(#earthenPatchGrad)" opacity="0.9" rx="34" ry="11"></ellipse>
+<ellipse cx="104" cy="384" fill="#0d1f0a" opacity="0.6" rx="26" ry="7"></ellipse>
+<path d="M 90 384 C 84 372, 76 364, 70 360 C 78 368, 86 376, 92 384 Z" fill="#22c55e"></path>
+<path d="M 96 385 C 93 368, 88 355, 82 346 C 92 358, 97 370, 99 385 Z" fill="#4ade80"></path>
+<path d="M 112 385 C 117 368, 124 354, 130 348 C 122 360, 116 372, 110 385 Z" fill="#22c55e"></path>
+<path d="M 118 385 C 124 372, 132 366, 138 362 C 130 370, 122 378, 116 385 Z" fill="#86efac"></path>
+<circle cx="104" cy="380" fill="#facc15" opacity="0.75" r="2.5"></circle>
+</g>
 </svg>
-<div class="absolute -top-32 left-1/2 -translate-x-1/2 ml-4 flex items-center justify-center cursor-pointer select-none origin-bottom" id="flower-head">
-<svg class="w-80 h-80 overflow-visible drop-shadow-[0_16px_28px_rgba(15,23,42,0.4)]" id="flower-svg" viewBox="-130 -130 260 260">
+<div class="absolute -top-32 sm:-top-36 left-1/2 -translate-x-1/2 ml-4 flex items-center justify-center cursor-pointer select-none origin-bottom" id="flower-head">
+<svg class="w-80 h-80 sm:w-96 sm:h-96 overflow-visible drop-shadow-[0_18px_32px_rgba(10,12,28,0.55)]" id="flower-svg" viewBox="-130 -130 260 260">
 <defs>
 <linearGradient id="petalGradient" x1="0%" x2="0%" y1="0%" y2="100%">
 <stop offset="0%" stop-color="#ffffff"></stop>
@@ -309,12 +356,12 @@
 <stop offset="100%" stop-color="#b45309"></stop>
 </radialGradient>
 <filter height="160%" id="softPetalShadow" width="160%" x="-30%" y="-30%">
-<feDropShadow dx="0" dy="4" flood-color="#4c1d95" flood-opacity="0.18" stdDeviation="3"></feDropShadow>
+<feDropShadow dx="0" dy="4" flood-color="#3b136f" flood-opacity="0.25" stdDeviation="3.5"></feDropShadow>
 </filter>
 </defs>
 <g class="transition-all" id="petals-group"></g>
 <g class="cursor-pointer group" id="flower-center-kawaii">
-<circle class="transition-transform duration-200 group-hover:scale-105" cx="0" cy="0" fill="url(#centerGrad)" filter="drop-shadow(0 6px 10px rgba(180,83,9,0.35))" r="35" stroke="#fef3c7" stroke-width="3"></circle>
+<circle class="transition-transform duration-200 group-hover:scale-105" cx="0" cy="0" fill="url(#centerGrad)" filter="drop-shadow(0 6px 12px rgba(180,83,9,0.45))" r="35" stroke="#fef3c7" stroke-width="3.2"></circle>
 <circle cx="-14" cy="-16" fill="#fef08a" opacity="0.75" r="2.2"></circle>
 <circle cx="16" cy="-14" fill="#fef08a" opacity="0.65" r="2"></circle>
 <circle cx="20" cy="11" fill="#d97706" opacity="0.45" r="2.2"></circle>
@@ -329,8 +376,8 @@
 <circle cx="10.5" cy="-6.5" fill="#ffffff" r="1.9"></circle>
 <circle cx="13.8" cy="-2.5" fill="#ffffff" r="0.9"></circle>
 </g>
-<ellipse class="transition-all duration-300" cx="-19" cy="5" fill="#f43f5e" id="blush-left" opacity="0.6" rx="5.5" ry="3.2"></ellipse>
-<ellipse class="transition-all duration-300" cx="19" cy="5" fill="#f43f5e" id="blush-right" opacity="0.6" rx="5.5" ry="3.2"></ellipse>
+<ellipse class="transition-all duration-300" cx="-19" cy="5" fill="#f43f5e" id="blush-left" opacity="0.65" rx="5.5" ry="3.2"></ellipse>
+<ellipse class="transition-all duration-300" cx="19" cy="5" fill="#f43f5e" id="blush-right" opacity="0.65" rx="5.5" ry="3.2"></ellipse>
 <path class="transition-all duration-300" d="M -7 9 Q 0 17 7 9" fill="#991b1b" id="mouth" stroke="#7f1d1d" stroke-linecap="round" stroke-width="1.8"></path>
 <path d="M -3 12 Q 0 16 3 12 Z" fill="#fb7185" id="tongue"></path>
 <path class="transition-opacity duration-300" d="M 23 -17 C 23 -22, 19 -27, 19 -27 C 19 -27, 15 -22, 15 -17 C 15 -14.5, 16.8 -13, 19 -13 C 21.2 -13, 23 -14.5, 23 -17 Z" fill="#67e8f9" id="sweat-drop" opacity="0"></path>
@@ -339,34 +386,159 @@
 </div>
 </div>
 </div>
+</main>
+<div class="absolute bottom-0 left-0 right-0 h-48 sm:h-64 md:h-76 pointer-events-none z-10 overflow-hidden">
+<svg class="absolute bottom-20 sm:bottom-28 -left-[5vw] w-[110vw] h-40 sm:h-52 opacity-80" preserveAspectRatio="none" viewBox="0 0 1000 120">
+<path d="M 0 120 L 0 50 Q 280 5, 540 45 Q 780 85, 1000 30 L 1000 120 Z" fill="#242254"></path>
+</svg>
+<div class="absolute bottom-28 sm:bottom-36 left-0 right-0 w-full flex justify-around px-8 opacity-75">
+<span class="text-xs filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform -translate-y-2">🪻</span>
+<span class="text-xs filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform translate-y-3">🌸</span>
+<span class="text-[10px] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform -translate-y-1">🌷</span>
+<span class="text-xs filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform translate-y-2">✨</span>
+<span class="text-[11px] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform -translate-y-3">🌸</span>
+<span class="text-xs filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transform translate-y-1">🪻</span>
 </div>
-<footer class="relative z-30 bg-white/20 backdrop-blur-xl border-t border-white/25 px-5 py-4 flex items-center justify-between gap-3 shadow-[0_-8px_24px_rgba(0,0,0,0.15)]">
-<div class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/30 backdrop-blur-md border border-white/40 shadow-sm text-slate-800">
-<span class="text-base">🌼</span>
-<span class="text-xs font-bold text-white tracking-wider uppercase">Petals</span>
-<span class="text-sm font-extrabold text-amber-200 bg-amber-900/40 px-2 py-0.5 rounded-full ml-1 font-mono" id="petals-count">
+<svg class="absolute bottom-10 sm:bottom-16 -left-[5vw] w-[110vw] h-36 sm:h-48 opacity-90" preserveAspectRatio="none" viewBox="0 0 1000 120">
+<path d="M 0 120 L 0 45 Q 220 75, 460 30 Q 720 -5, 1000 50 L 1000 120 Z" fill="#1b4952"></path>
+</svg>
+<div class="absolute bottom-16 sm:bottom-24 left-0 right-0 w-full pointer-events-none px-6 sm:px-16 flex justify-between items-end opacity-90">
+<div class="sway-flower-left flex flex-col items-center">
+<svg class="w-6 h-10 overflow-visible" viewBox="0 0 24 40">
+<path d="M 12 40 Q 10 24 12 12" fill="none" stroke="#22c55e" stroke-width="2"></path>
+<path d="M 12 26 Q 5 24 2 20 C 6 22 10 24 12 26 Z" fill="#16a34a"></path>
+<circle cx="12" cy="10" fill="#f43f5e" r="7"></circle>
+<circle cx="12" cy="10" fill="#fb7185" r="4.5"></circle>
+<circle cx="12" cy="10" fill="#fef08a" r="2.2"></circle>
+</svg>
+</div>
+<div class="sway-flower-right hidden sm:flex flex-col items-center ml-12">
+<svg class="w-7 h-12 overflow-visible" viewBox="0 0 28 48">
+<path d="M 14 48 Q 16 30 14 14" fill="none" stroke="#22c55e" stroke-width="2"></path>
+<path d="M 14 14 C 8 8, 8 2, 14 0 C 20 2, 20 8, 14 14 Z" fill="#c084fc"></path>
+<ellipse cx="14" cy="5" fill="#e9d5ff" rx="3.5" ry="5"></ellipse>
+</svg>
+</div>
+<div class="sway-flower-left hidden sm:flex flex-col items-center mr-16">
+<svg class="w-6 h-11 overflow-visible" viewBox="0 0 24 44">
+<path d="M 12 44 Q 15 28 12 14" fill="none" stroke="#22c55e" stroke-width="2"></path>
+<circle cx="12" cy="12" fill="#fef08a" r="6.5"></circle>
+<circle cx="8" cy="10" fill="#fde047" r="4.5"></circle>
+<circle cx="16" cy="10" fill="#fde047" r="4.5"></circle>
+<circle cx="12" cy="6" fill="#facc15" r="4"></circle>
+<circle cx="12" cy="11" fill="#ea580c" r="2.2"></circle>
+</svg>
+</div>
+<div class="sway-flower-right flex flex-col items-center">
+<svg class="w-7 h-12 overflow-visible" viewBox="0 0 28 48">
+<path d="M 14 48 Q 11 32 14 16" fill="none" stroke="#22c55e" stroke-width="2.2"></path>
+<path d="M 14 30 Q 22 28 26 22 C 22 25 18 28 14 30 Z" fill="#16a34a"></path>
+<path d="M 7 16 C 5 8, 10 3, 14 4 C 18 3, 23 8, 21 16 Q 14 20 7 16 Z" fill="#f472b6"></path>
+<path d="M 10 16 C 9 9, 13 5, 14 5 C 15 5, 19 9, 18 16 Z" fill="#fb7185"></path>
+<circle cx="14" cy="10" fill="#fbcfe8" r="2"></circle>
+</svg>
+</div>
+</div>
+<svg class="absolute bottom-0 left-0 right-0 w-full h-32 sm:h-40" preserveAspectRatio="none" viewBox="0 0 1000 100">
+<defs>
+<linearGradient id="hillGradFull" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4ade80"></stop>
+<stop offset="30%" stop-color="#22c55e"></stop>
+<stop offset="100%" stop-color="#14532d"></stop>
+</linearGradient>
+</defs>
+<path d="M 0 100 L 0 30 Q 320 60, 620 20 Q 840 -10, 1000 25 L 1000 100 Z" fill="url(#hillGradFull)"></path>
+</svg>
+<div class="absolute bottom-3 left-3 sm:left-12 md:left-20 z-20 flex items-end gap-2.5 opacity-95">
+<div class="sway-grass flex items-end gap-1">
+<div class="w-2.5 h-9 sm:h-12 rounded-t-full bg-lime-300"></div>
+<div class="w-3.5 h-13 sm:h-16 rounded-t-full bg-emerald-400"></div>
+<div class="w-3 h-10 sm:h-13 rounded-t-full bg-green-500"></div>
+</div>
+<div class="sway-flower-left flex flex-col items-center -ml-2 mb-1">
+<svg class="w-9 h-16 sm:w-11 sm:h-20 overflow-visible drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]" viewBox="0 0 36 64">
+<path d="M 18 64 Q 15 40 18 20" fill="none" stroke="#16a34a" stroke-linecap="round" stroke-width="3"></path>
+<path d="M 18 42 Q 6 38 2 30 C 8 34 14 38 18 42 Z" fill="#22c55e"></path>
+<circle cx="10" cy="18" fill="#e11d48" r="8.5"></circle>
+<circle cx="26" cy="18" fill="#e11d48" r="8.5"></circle>
+<circle cx="18" cy="11" fill="#f43f5e" r="9"></circle>
+<circle cx="18" cy="22" fill="#fb7185" r="7.5"></circle>
+<circle cx="18" cy="17" fill="#881337" r="4.5"></circle>
+<circle cx="18" cy="17" fill="#fef08a" r="2.2"></circle>
+</svg>
+</div>
+<div class="sway-flower-right hidden xs:flex flex-col items-center mb-0.5">
+<svg class="w-7 h-13 sm:w-9 sm:h-16 overflow-visible" viewBox="0 0 30 52">
+<path d="M 15 52 Q 18 36 15 18" fill="none" stroke="#22c55e" stroke-linecap="round" stroke-width="2.5"></path>
+<circle cx="15" cy="14" fill="#facc15" r="7.5"></circle>
+<circle cx="10" cy="12" fill="#fde047" r="5"></circle>
+<circle cx="20" cy="12" fill="#fde047" r="5"></circle>
+<circle cx="15" cy="8" fill="#fef08a" r="5"></circle>
+<circle cx="15" cy="14" fill="#ca8a04" r="2.5"></circle>
+</svg>
+</div>
+<div class="sway-flower-left flex flex-col items-center -ml-1 mb-2">
+<span class="text-base sm:text-xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">🌸</span>
+</div>
+</div>
+<div class="absolute bottom-3 right-3 sm:right-12 md:right-20 z-20 flex items-end gap-2.5 opacity-95">
+<div class="sway-flower-left flex flex-col items-center mb-1">
+<svg class="w-8 h-15 sm:w-10 sm:h-18 overflow-visible drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]" viewBox="0 0 34 60">
+<path d="M 17 60 Q 13 40 17 18" fill="none" stroke="#16a34a" stroke-linecap="round" stroke-width="3"></path>
+<path d="M 17 38 Q 28 34 32 26 C 26 30 21 34 17 38 Z" fill="#22c55e"></path>
+<path d="M 7 18 C 5 7, 12 2, 17 3 C 22 2, 29 7, 27 18 Q 17 24 7 18 Z" fill="#ec4899"></path>
+<path d="M 11 18 C 10 9, 15 4, 17 4 C 19 4, 24 9, 23 18 Z" fill="#f472b6"></path>
+<circle cx="17" cy="12" fill="#fbcfe8" r="2.5"></circle>
+</svg>
+</div>
+<div class="sway-flower-right hidden xs:flex flex-col items-center -ml-1 mb-1.5">
+<svg class="w-7 h-14 sm:w-8 sm:h-17 overflow-visible" viewBox="0 0 28 56">
+<path d="M 14 56 L 14 16" fill="none" stroke="#22c55e" stroke-linecap="round" stroke-width="2.5"></path>
+<ellipse cx="14" cy="8" fill="#a855f7" rx="4" ry="5.5"></ellipse>
+<ellipse cx="11" cy="14" fill="#c084fc" rx="3.5" ry="4.5"></ellipse>
+<ellipse cx="17" cy="14" fill="#c084fc" rx="3.5" ry="4.5"></ellipse>
+<ellipse cx="14" cy="20" fill="#d8b4fe" rx="3.5" ry="4"></ellipse>
+</svg>
+</div>
+<div class="sway-grass flex items-end gap-1" style="animation-delay: 1.6s;">
+<div class="w-3 h-11 sm:h-14 rounded-t-full bg-emerald-300"></div>
+<div class="w-2.5 h-14 sm:h-17 rounded-t-full bg-lime-400"></div>
+<div class="w-3 h-9 sm:h-12 rounded-t-full bg-emerald-500"></div>
+</div>
+<div class="relative -top-8 -left-2 text-base sm:text-xl drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">🌼</div>
+</div>
+</div>
+<footer class="relative z-30 pb-4 sm:pb-7 px-4 w-full flex items-center justify-center">
+<div class="inline-flex items-center gap-2 sm:gap-4 p-2 sm:p-2.5 rounded-3xl bg-slate-900/40 backdrop-blur-2xl border border-white/20 shadow-[0_12px_36px_rgba(0,0,0,0.45)] max-w-md w-full justify-between">
+<div class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white min-h-[44px]">
+<span class="text-base sm:text-lg">🌼</span>
+<span class="text-xs sm:text-sm font-bold tracking-wider uppercase hidden xs:inline text-pink-100">Petals</span>
+<span class="text-xs sm:text-sm font-extrabold text-amber-200 bg-amber-950/60 px-2.5 py-0.5 rounded-full ml-1 font-mono border border-amber-300/30" id="petals-count">
           8/8
         </span>
 </div>
-<div class="flex items-center gap-2.5">
-<button class="group relative px-4 sm:px-5 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 text-white font-extrabold text-sm tracking-wide shadow-[0_4px_16px_rgba(244,63,94,0.45)] hover:shadow-[0_6px_20px_rgba(244,63,94,0.6)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="pluck-btn">
-<span class="transition-transform group-hover:rotate-12">✂️</span>
+<div class="flex items-center gap-2">
+<button class="group relative min-h-[44px] px-5 sm:px-6 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(244,63,94,0.55)] hover:shadow-[0_6px_24px_rgba(244,63,94,0.7)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="pluck-btn">
+<span class="transition-transform group-hover:rotate-12 text-sm sm:text-base">✂️</span>
 <span>Pluck</span>
 </button>
-<button class="group relative px-3.5 sm:px-4 py-2.5 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-extrabold text-sm tracking-wide shadow-[0_4px_16px_rgba(20,184,166,0.4)] hover:shadow-[0_6px_20px_rgba(20,184,166,0.55)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="reset-btn">
-<span class="transition-transform group-hover:rotate-45">🌱</span>
-<span class="hidden sm:inline">Grow</span>
+<button class="group relative min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-[0_4px_18px_rgba(20,184,166,0.45)] hover:shadow-[0_6px_24px_rgba(20,184,166,0.65)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer" id="reset-btn">
+<span class="transition-transform group-hover:rotate-45 text-sm sm:text-base">🌱</span>
+<span>Regrow</span>
 </button>
 </div>
+</div>
 </footer>
-</main>
 <script>
-    // Odd petal count ends on LOVES ME; even ends on LOVES ME NOT.
-    // Each grow picks a fair 50/50 final outcome via random count.
-    let TOTAL_PETALS = 8;
+    let currentTotalPetals = 8;
     let remainingPetals = [];
     let stateIndex = 0;
     let isAnimating = false;
+    let soundEnabled = true;
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
     const petalsGroup = document.getElementById('petals-group');
     const statusTitle = document.getElementById('status-title');
@@ -380,11 +552,104 @@
     const flowerCenterKawaii = document.getElementById('flower-center-kawaii');
     const particlesContainer = document.getElementById('particles-container');
     const starsLayer = document.getElementById('stars-layer');
+    const firefliesLayer = document.getElementById('fireflies-layer');
     const mouth = document.getElementById('mouth');
     const tongue = document.getElementById('tongue');
     const blushLeft = document.getElementById('blush-left');
     const blushRight = document.getElementById('blush-right');
     const sweatDrop = document.getElementById('sweat-drop');
+    const soundBtn = document.getElementById('sound-btn');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
+
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playMusicBoxNote(freq, startTime, duration = 0.5, peakGain = 0.065) {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1400, startTime);
+      filter.Q.setValueAtTime(1.2, startTime);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, startTime);
+
+      gainNode.gain.setValueAtTime(0.0001, startTime);
+      gainNode.gain.exponentialRampToValueAtTime(peakGain, startTime + 0.035);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+      osc.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.05);
+    }
+
+    function playCuteChime(type = 'pluck') {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (type === 'love') {
+          playMusicBoxNote(523.25, now, 0.42, 0.055);
+          playMusicBoxNote(659.25, now + 0.09, 0.45, 0.060);
+          playMusicBoxNote(783.99, now + 0.18, 0.55, 0.050);
+        } else if (type === 'fanfare') {
+          const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+          notes.forEach((freq, idx) => {
+            playMusicBoxNote(freq, now + idx * 0.075, 0.65, 0.05);
+          });
+        } else if (type === 'not') {
+          playMusicBoxNote(440.00, now, 0.42, 0.045);
+          playMusicBoxNote(329.63, now + 0.12, 0.52, 0.040);
+        } else if (type === 'consoling') {
+          const notes = [392.00, 349.23, 293.66, 261.63];
+          notes.forEach((freq, idx) => {
+            playMusicBoxNote(freq, now + idx * 0.12, 0.55, 0.045);
+          });
+        } else if (type === 'grow') {
+          playMusicBoxNote(261.63, now, 0.45, 0.05);
+          playMusicBoxNote(392.00, now + 0.1, 0.50, 0.055);
+          playMusicBoxNote(523.25, now + 0.22, 0.60, 0.05);
+        }
+      } catch (e) {
+        // ignore audio failures
+      }
+    }
+
+    soundBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        soundIcon.textContent = '🔔';
+        soundLabel.textContent = 'Chimes On';
+        soundLabel.className = 'text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-200';
+        playCuteChime('love');
+      } else {
+        soundIcon.textContent = '🔕';
+        soundLabel.textContent = 'Muted';
+        soundLabel.className = 'text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400';
+      }
+    });
 
     const PETAL_PROFILES = [
       {
@@ -402,14 +667,14 @@
         extraRot: 1.5
       },
       {
-        path: 'M -11 -23 C -22 -44, -23 -78, -12 -105 C -5 -117, 7 -116, 13 -104 C 23 -84, 21 -50, 11 -23 C 5 -15, -5 -15, -11 -23 Z',
+        path: 'M -11 -23 C -22 -44, -23 -78, -12 -105 C -5 -117, 7 -116, 13 -104 C 23 -84, 21 -50, 11 -23 Z',
         vein: 'M 0 -24 Q -2 -63 1 -97',
         gloss: { cx: 0, cy: -83, rx: 5.8, ry: 12.5, rot: 0 },
         rim: 'M -7 -104 Q 1 -110 9 -104',
         extraRot: -2
       },
       {
-        path: 'M -10 -22 C -24 -52, -20 -86, -11 -107 C -4 -118, 9 -116, 13 -105 C 19 -88, 22 -48, 12 -22 C 6 -13, -5 -13, -10 -22 Z',
+        path: 'M -10 -22 C -24 -52, -20 -86, -11 -107 C -4 -118, 9 -116, 13 -105 C 19 -88, 22 -48, 12 -22 Z',
         vein: 'M 0 -24 Q -5 -65 1 -99',
         gloss: { cx: -2, cy: -85, rx: 4.8, ry: 14, rot: -3 },
         rim: 'M -6 -106 Q 2 -111 8 -106',
@@ -445,29 +710,20 @@
       }
     ];
 
-    function pickRandomPetalCount() {
-      const wantsLovesMe = Math.random() < 0.5;
-      const candidates = [];
-      for (let n = 6; n <= 11; n++) {
-        if (wantsLovesMe ? n % 2 === 1 : n % 2 === 0) candidates.push(n);
-      }
-      return candidates[Math.floor(Math.random() * candidates.length)];
-    }
-
     function createStars() {
       starsLayer.innerHTML = '';
-      const starCount = 18;
+      const starCount = window.innerWidth > 768 ? 36 : 22;
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'twinkle-star absolute pointer-events-none';
 
-        const size = Math.floor(Math.random() * 12) + 8;
+        const size = Math.floor(Math.random() * 14) + 7;
         star.style.width = size + 'px';
         star.style.height = size + 'px';
-        star.style.left = (Math.random() * 90 + 5) + '%';
-        star.style.top = (Math.random() * 55 + 5) + '%';
-        star.style.setProperty('--speed', (2 + Math.random() * 3) + 's');
-        star.style.animationDelay = (Math.random() * 3) + 's';
+        star.style.left = (Math.random() * 96 + 2) + '%';
+        star.style.top = (Math.random() * 60 + 2) + '%';
+        star.style.setProperty('--speed', (2.2 + Math.random() * 3.5) + 's');
+        star.style.animationDelay = (Math.random() * 3.5) + 's';
 
         star.innerHTML = `
           <svg viewBox="0 0 24 24" class="w-full h-full fill-amber-100/90">
@@ -475,6 +731,25 @@
           </svg>
         `;
         starsLayer.appendChild(star);
+      }
+    }
+
+    function createFireflies() {
+      firefliesLayer.innerHTML = '';
+      const fireflyCount = 14;
+      for (let i = 0; i < fireflyCount; i++) {
+        const ff = document.createElement('div');
+        ff.className = 'firefly-spark absolute pointer-events-none rounded-full bg-amber-300 blur-[0.6px]';
+        const size = Math.random() * 4 + 3;
+        ff.style.width = size + 'px';
+        ff.style.height = size + 'px';
+        ff.style.left = (Math.random() * 92 + 4) + '%';
+        ff.style.bottom = (Math.random() * 25 + 2) + '%';
+        ff.style.boxShadow = '0 0 8px 2px rgba(253, 224, 71, 0.7)';
+        ff.style.setProperty('--fx', (Math.random() * 60 - 30) + 'px');
+        ff.style.setProperty('--dur', (5 + Math.random() * 5) + 's');
+        ff.style.animationDelay = (Math.random() * 5) + 's';
+        firefliesLayer.appendChild(ff);
       }
     }
 
@@ -550,11 +825,11 @@
     }
 
     function setFaceExpression(mood) {
-      if (mood === 'happy') {
-        mouth.setAttribute('d', 'M -8 8 Q 0 20 8 8 Z');
+      if (mood === 'happy' || mood === 'celebrate') {
+        mouth.setAttribute('d', 'M -8 8 Q 0 21 8 8 Z');
         tongue.style.display = 'block';
-        blushLeft.style.opacity = '0.85';
-        blushRight.style.opacity = '0.85';
+        blushLeft.style.opacity = '0.95';
+        blushRight.style.opacity = '0.95';
         blushLeft.setAttribute('fill', '#f43f5e');
         blushRight.setAttribute('fill', '#f43f5e');
         sweatDrop.style.opacity = '0';
@@ -566,47 +841,54 @@
         blushLeft.setAttribute('fill', '#ec4899');
         blushRight.setAttribute('fill', '#ec4899');
         sweatDrop.style.opacity = '0.9';
+      } else if (mood === 'pout') {
+        mouth.setAttribute('d', 'M -8 14 Q 0 4 8 14');
+        tongue.style.display = 'none';
+        blushLeft.style.opacity = '0.7';
+        blushRight.style.opacity = '0.7';
+        blushLeft.setAttribute('fill', '#f97316');
+        blushRight.setAttribute('fill', '#f97316');
+        sweatDrop.style.opacity = '1';
       } else {
         mouth.setAttribute('d', 'M -7 9 Q 0 17 7 9');
         tongue.style.display = 'block';
-        blushLeft.style.opacity = '0.6';
-        blushRight.style.opacity = '0.6';
+        blushLeft.style.opacity = '0.65';
+        blushRight.style.opacity = '0.65';
         sweatDrop.style.opacity = '0';
       }
     }
 
     function spawnParticles(type = 'hearts') {
-      const count = type === 'hearts' ? 16 : 10;
+      const count = type === 'celebration' ? 36 : (type === 'hearts' ? 20 : 14);
       const headRect = flowerHead.getBoundingClientRect();
-      const parentRect = particlesContainer.getBoundingClientRect();
 
-      const originX = headRect.left - parentRect.left + headRect.width / 2;
-      const originY = headRect.top - parentRect.top + headRect.height / 2;
+      const originX = headRect.left + headRect.width / 2;
+      const originY = headRect.top + headRect.height / 2;
 
       for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
-        particle.className = 'absolute particle-float pointer-events-none select-none';
+        particle.className = 'fixed particle-float pointer-events-none select-none z-50';
 
-        const dx = (Math.random() - 0.5) * 160;
-        const rot = (Math.random() - 0.5) * 120;
-        const delay = Math.random() * 0.35;
-        const scale = 0.8 + Math.random() * 0.7;
+        const dx = (Math.random() - 0.5) * (type === 'celebration' ? 340 : 220);
+        const rot = (Math.random() - 0.5) * 160;
+        const delay = Math.random() * 0.4;
+        const scale = 0.85 + Math.random() * 0.85;
 
-        particle.style.left = (originX + (Math.random() - 0.5) * 50) + 'px';
-        particle.style.top = (originY + (Math.random() - 0.5) * 40) + 'px';
+        particle.style.left = (originX + (Math.random() - 0.5) * 70) + 'px';
+        particle.style.top = (originY + (Math.random() - 0.5) * 60) + 'px';
         particle.style.setProperty('--dx', dx + 'px');
         particle.style.setProperty('--rot', rot + 'deg');
         particle.style.animationDelay = delay + 's';
         particle.style.transform = `scale(${scale})`;
 
-        if (type === 'hearts') {
-          const heartIcons = ['💖', '💕', '✨', '🌸', '💫'];
+        if (type === 'celebration' || type === 'hearts') {
+          const heartIcons = ['💖', '💕', '✨', '🌸', '💫', '💗', '❤️', '🌟', '🌷'];
           const icon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-          particle.innerHTML = `<span class="text-xl filter drop-shadow-[0_4px_8px_rgba(244,63,94,0.6)]">${icon}</span>`;
+          particle.innerHTML = `<span class="text-2xl filter drop-shadow-[0_4px_12px_rgba(244,63,94,0.85)]">${icon}</span>`;
         } else {
-          const sadIcons = ['🍃', '🍂', '💧', '✨'];
+          const sadIcons = ['🌧️', '💧', '🍂', '🍃', '✨', '☁️', '💔'];
           const icon = sadIcons[Math.floor(Math.random() * sadIcons.length)];
-          particle.innerHTML = `<span class="text-xl filter drop-shadow-[0_3px_6px_rgba(100,116,139,0.5)]">${icon}</span>`;
+          particle.innerHTML = `<span class="text-xl filter drop-shadow-[0_3px_6px_rgba(100,116,139,0.6)]">${icon}</span>`;
         }
 
         particlesContainer.appendChild(particle);
@@ -618,22 +900,24 @@
     }
 
     function initializeFlower(withBloomAnimation = false) {
-      TOTAL_PETALS = pickRandomPetalCount();
       petalsGroup.innerHTML = '';
       remainingPetals = [];
       stateIndex = 0;
       isAnimating = false;
 
-      for (let i = 0; i < TOTAL_PETALS; i++) {
-        const petalEl = createPetalElement(i, TOTAL_PETALS);
+      currentTotalPetals = getRandomInt(7, 13);
+
+      for (let i = 0; i < currentTotalPetals; i++) {
+        const petalEl = createPetalElement(i, currentTotalPetals);
         petalsGroup.appendChild(petalEl);
         remainingPetals.push(i);
       }
 
       setFaceExpression('neutral');
-      updateUI('LOVES ME NOT', 'text-white', '✨ Pluck a soft petal to discover their heart ✨', TOTAL_PETALS);
+      updateUI('LOVES ME NOT', 'text-white', '✨ Pluck a soft petal to discover their heart ✨', currentTotalPetals);
 
       if (withBloomAnimation) {
+        playCuteChime('grow');
         flowerHead.classList.remove('spring-recoil');
         stemSvg.classList.remove('neck-recoil');
         flowerWrapper.classList.remove('blooming-sprout');
@@ -673,7 +957,7 @@
 
         setTimeout(() => {
           if (petalEl.parentNode) petalEl.remove();
-        }, 900);
+        }, 1000);
       }
 
       flowerHead.classList.remove('spring-recoil');
@@ -684,29 +968,37 @@
 
       stateIndex++;
       const isLovesMe = (stateIndex % 2 === 1);
+      const isLastPetal = (remainingPetals.length === 0);
 
-      if (isLovesMe) {
-        setFaceExpression('happy');
-        updateUI('LOVES ME! 💕', 'text-pink-300 drop-shadow-[0_4px_16px_rgba(244,114,182,0.85)]', 'Yay! A heartbeat skipped for you! ✨', remainingPetals.length);
-        spawnParticles('hearts');
+      if (!isLastPetal) {
+        if (isLovesMe) {
+          playCuteChime('love');
+          setFaceExpression('happy');
+          updateUI('LOVES ME! 💕', 'text-pink-300 drop-shadow-[0_4px_22px_rgba(244,114,182,0.9)]', 'Yay! A heartbeat skipped for you! ✨', remainingPetals.length);
+          spawnParticles('hearts');
+        } else {
+          playCuteChime('not');
+          setFaceExpression('shy-sad');
+          updateUI('LOVES ME NOT... 🍃', 'text-indigo-200 drop-shadow-[0_4px_16px_rgba(165,180,252,0.7)]', 'A quiet flutter in the night breeze... 💧', remainingPetals.length);
+          spawnParticles('leaves');
+        }
       } else {
-        setFaceExpression('shy-sad');
-        updateUI('LOVES ME NOT... 🍃', 'text-indigo-200 drop-shadow-[0_4px_14px_rgba(165,180,252,0.7)]', 'A quiet flutter in the autumn breeze... 💧', remainingPetals.length);
-        spawnParticles('leaves');
-      }
-
-      if (remainingPetals.length === 0) {
         setTimeout(() => {
           if (isLovesMe) {
-            setFaceExpression('happy');
-            updateUI('TRUE LOVE! 💖🌸', 'text-pink-300 drop-shadow-[0_4px_20px_rgba(244,63,94,0.9)]', 'Destined forever & always! ✨✨✨', 0);
-            spawnParticles('hearts');
-            setTimeout(() => spawnParticles('hearts'), 300);
+            playCuteChime('fanfare');
+            setFaceExpression('celebrate');
+            updateUI('THEY LOVE YOU! ❤️✨', 'text-pink-400 drop-shadow-[0_6px_32px_rgba(244,63,94,1)] banner-pop', '💖 Destined forever & always under the stars! 💖', 0);
+            spawnParticles('celebration');
+            setTimeout(() => spawnParticles('celebration'), 350);
+            setTimeout(() => spawnParticles('hearts'), 700);
           } else {
-            setFaceExpression('shy-sad');
-            updateUI('TRY AGAIN! 🌱', 'text-amber-200 drop-shadow-[0_4px_16px_rgba(251,191,36,0.7)]', 'The next daisy might whisper yes! ✨', 0);
+            playCuteChime('consoling');
+            setFaceExpression('pout');
+            updateUI('LOVES ME NOT... 💔', 'text-purple-300 drop-shadow-[0_6px_24px_rgba(192,132,252,0.85)] banner-pop', '🌧️ Maybe next time... or regrow another flower! 🌱🌼', 0);
+            spawnParticles('leaves');
+            setTimeout(() => spawnParticles('leaves'), 350);
           }
-        }, 400);
+        }, 220);
       }
 
       setTimeout(() => {
@@ -715,14 +1007,14 @@
     }
 
     function updateUI(titleText, titleClass, subtitleText, count) {
-      statusTitle.className = `text-3xl sm:text-4xl font-extrabold tracking-wide transition-all duration-300 transform scale-105 ${titleClass}`;
+      statusTitle.className = `text-3xl sm:text-5xl md:text-6xl font-black tracking-wide transition-all duration-300 transform scale-105 ${titleClass}`;
       statusTitle.textContent = titleText;
       setTimeout(() => {
         statusTitle.classList.remove('scale-105');
       }, 200);
 
       subStatus.textContent = subtitleText;
-      petalsCount.textContent = `${count}/${TOTAL_PETALS}`;
+      petalsCount.textContent = `${count}/${currentTotalPetals}`;
 
       if (count === 0) {
         pluckBtn.disabled = true;
@@ -733,13 +1025,28 @@
       }
     }
 
-    pluckBtn.addEventListener('click', pluckNextPetal);
-    flowerCenterKawaii.addEventListener('click', pluckNextPetal);
+    pluckBtn.addEventListener('click', () => {
+      pluckBtn.classList.add('haptic-pop');
+      setTimeout(() => pluckBtn.classList.remove('haptic-pop'), 250);
+      pluckNextPetal();
+    });
+
+    flowerCenterKawaii.addEventListener('click', () => {
+      pluckNextPetal();
+    });
+
     resetBtn.addEventListener('click', () => {
+      resetBtn.classList.add('haptic-pop');
+      setTimeout(() => resetBtn.classList.remove('haptic-pop'), 250);
       initializeFlower(true);
     });
 
+    window.addEventListener('resize', () => {
+      createStars();
+    });
+
     createStars();
+    createFireflies();
     initializeFlower(false);
   </script>
 </body></html>
