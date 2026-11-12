@@ -79,13 +79,14 @@ else
   # Insert hostname rule before the catch-all http_status:404 (or append near ingress list).
   TMP="$(mktemp)"
   python3 - "${TUNNEL_CFG}" "${PORT}" "${TMP}" <<'PY'
+import re
 import sys
 path, port, out = sys.argv[1], sys.argv[2], sys.argv[3]
 text = open(path, encoding="utf-8").read()
 rule = f"  - hostname: lizi.g1orga.dev\n    service: http://127.0.0.1:{port}\n"
-needle = "service: http_status:404"
-if needle in text:
-    text = text.replace(needle, rule + "  - " + needle, 1)
+catch_all = re.compile(r"(?m)^[ \t]*-[ \t]*service:[ \t]*http_status:404[ \t]*\n?")
+if catch_all.search(text):
+    text = catch_all.sub(rule + "  - service: http_status:404\n", text, count=1)
 elif "ingress:" in text:
     text = text.replace("ingress:\n", "ingress:\n" + rule, 1)
 else:
